@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - Breast Cancer Detection</title>
+
+  <!-- Google Font, Bootstrap & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navbar - same gradient + styling used in input.html */
+    .navbar {
+      background: linear-gradient(45deg, #0077b6, #f72585);
+    }
+    .navbar-brand, .nav-link { color: #fff !important; font-weight: 500; }
+    .nav-link.active { font-weight: 700; }
+
+    /* Welcome banner & stat cards */
+    .welcome {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      margin-top: 20px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .stat-card h3 { margin-top: .5rem; font-weight: 700; }
+    .muted { color: #6c757d; }
+    .btn-cta {
+      background: linear-gradient(90deg, #0077b6, #f72585);
+      color: #fff;
+      border: 0;
+    }
+    .btn-cta:hover { opacity: .95; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar (same markup as input.html) -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">
+        <i class="fas fa-ribbon me-2"></i>Breast Cancer Detection
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('input_page') }}">Input Data</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('performance') }}">Performance</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('charts') }}">Charts</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="container" style="max-width:1100px;">
+    <div class="welcome">
+      <div class="d-flex align-items-center justify-content-between flex-column flex-md-row gap-3">
+        <div>
+          <h1 class="mb-1">Welcome, {{ username }}!</h1>
+          <p class="muted mb-0">Monitor, predict, and analyze breast cancer data with confidence.</p>
+        </div>
+        <div class="text-center">
+          <a href="{{ url_for('input_page') }}" class="btn btn-cta btn-lg">Start Prediction</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="row mt-4 g-4">
+      <div class="col-sm-6 col-md-3">
+        <div class="stat-card">
+          <i class="fas fa-bullseye fa-2x text-primary"></i>
+          <h3>{{ accuracy|default(99.12) }}%</h3>
+          <p class="muted mb-0">Accuracy</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="stat-card">
+          <i class="fas fa-crosshairs fa-2x text-success"></i>
+          <h3>{{ precision|default(100.0) }}%</h3>
+          <p class="muted mb-0">Precision</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="stat-card">
+          <i class="fas fa-sync-alt fa-2x text-warning"></i>
+          <h3>{{ recall|default(98.0) }}%</h3>
+          <p class="muted mb-0">Recall</p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="stat-card">
+          <i class="fas fa-cubes fa-2x text-danger"></i>
+          <h3>{{ f1_score|default(99.0) }}%</h3>
+          <p class="muted mb-0">F1 Score</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- optional quick links / cards -->
+    <div class="row mt-4 g-4">
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5 class="mb-2">Recent Predictions</h5>
+          <p class="muted mb-0">No recent entries — use "Start Prediction" to add a new case.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5 class="mb-2">Model Health</h5>
+          <p class="muted mb-0">Model performing normally. View more in Performance & Charts pages.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
